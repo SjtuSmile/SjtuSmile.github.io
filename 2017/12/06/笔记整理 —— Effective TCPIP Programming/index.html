@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="socket,tcp/ip," />
 
 
 
@@ -94,13 +94,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="sjtu_smile的个人博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） 每条报文">
+<meta name="keywords" content="socket,tcp&#x2F;ip">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记整理 —— Effective TCP&#x2F;IP Programming">
+<meta property="og:url" content="http://yoursite.com/2017/12/06/笔记整理 —— Effective TCPIP Programming/index.html">
 <meta property="og:site_name" content="sjtu_smile的个人博客">
+<meta property="og:description" content="TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） 每条报文前面加上一个首部，其中包含后面报文的长度  TCP故障模式永久或临时的网络中断对等的应用程序崩溃">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-11T15:40:50.993Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sjtu_smile的个人博客">
+<meta name="twitter:title" content="笔记整理 —— Effective TCP&#x2F;IP Programming">
+<meta name="twitter:description" content="TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） 每条报文前面加上一个首部，其中包含后面报文的长度  TCP故障模式永久或临时的网络中断对等的应用程序崩溃">
 
 
 
@@ -129,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/06/笔记整理 —— Effective TCPIP Programming/"/>
 
 
 
 
 
-  <title>sjtu_smile的个人博客</title>
+  <title>笔记整理 —— Effective TCP/IP Programming | sjtu_smile的个人博客</title>
   
 
 
@@ -160,9 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -245,9 +248,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -277,9 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/06/笔记整理 —— Effective TCPIP Programming/" itemprop="url">笔记整理 —— Effective TCP/IP Programming</a></h1>
+          <h1 class="post-title" itemprop="name headline">笔记整理 —— Effective TCP/IP Programming</h1>
         
 
         <div class="post-meta">
@@ -329,9 +330,7 @@
       
 
       
-        
-          
-            <h1 id="TCP-VS-UDP"><a href="#TCP-VS-UDP" class="headerlink" title="TCP VS UDP"></a>TCP VS UDP</h1><p>面向连接的，可靠的，有序的<br>校验和；序列号；确认-重传(Ack)<br>流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出<br>拥塞控制</p>
+        <h1 id="TCP-VS-UDP"><a href="#TCP-VS-UDP" class="headerlink" title="TCP VS UDP"></a>TCP VS UDP</h1><p>面向连接的，可靠的，有序的<br>校验和；序列号；确认-重传(Ack)<br>流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出<br>拥塞控制</p>
 <h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><p>私有地址+端口 &lt;——&gt; 共有地址+新端口</p>
 <h1 id="TCP是一种流协议"><a href="#TCP是一种流协议" class="headerlink" title="TCP是一种流协议"></a>TCP是一种流协议</h1><p>定长报文： readn<br>可变长报文</p>
 <ul>
@@ -399,8 +398,6 @@
 <h1 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h1><p>找到某个文件或socket/port的进程</p>
 <h1 id="netstate"><a href="#netstate" class="headerlink" title="netstate"></a>netstate</h1><p>netstate -f    查看活动socket的相关信息<br>netstate -i    网络接口信息<br>netstate -n    路由表<br>netstate -p    协议统计信息</p>
 <h1 id="追踪系统调用-——-strace"><a href="#追踪系统调用-——-strace" class="headerlink" title="追踪系统调用 —— strace"></a>追踪系统调用 —— strace</h1>
-          
-        
       
     </div>
     
@@ -415,146 +412,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/29/docker多主机网络实践/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sjtu_smile">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="sjtu_smile的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/29/docker多主机网络实践/" itemprop="url">docker多主机网络实践</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-29T11:14:14+08:00">
-                2017-11-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/socket/" rel="tag"># socket</a>
           
-            
+            <a href="/tags/tcp-ip/" rel="tag"># tcp/ip</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>近年来，Docker容器技术在虚拟化中的应用越来越广。随着3GPP正式宣布采用SBA（service-based architecture）作为5G核心网的基础架构，各个通信厂商也开始陆续推出自己的容器平台。VNF向容器云迁移是大势所趋。<br>Docker自身支持的网络模式有Nat，Bridge，Macvlan，Overlay。Overlay是docker官方支持的多主机网络方案，从docker 1.9版本开始引入。关于Overlay模式有一篇非常好的深入分析<a href="http://techblog.d2-si.eu/2017/05/09/deep-dive-into-docker-overlay-networks-part-2.html" target="_blank" rel="noopener">“Deep dive into Docker Overlay Networks”</a>。<br>常见的第三方网络方案有flannel，weave，calico。关于它们的原理及区别可以参考<a href="https://www.hi-linux.com/posts/58668.html" target="_blank" rel="noopener">“Docker跨主机通信解决方案探讨”</a>。本次实践中，由于产品自身网络特性需求，同时为了和已有的基于虚拟机的VNF进行性能对比，我们采用Docker macvlan和bridge driver部署容器VNF。</p>
-<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>host10(10.121.52.11)： 用来部署控制节点(sc)<br>host11(10.121.52.12)： 用来部署traffic节点(pl)<br>host12(10.121.52.13)： 用来部署traffic节点(pl)<br>三台主机的liunx版本: SUSE12 SP2<br>Docker版本： 1.12</p>
-<h2 id="网络拓扑"><a href="#网络拓扑" class="headerlink" title="网络拓扑"></a>网络拓扑</h2><p>最终的网络拓扑图如下图所示。需要在多主机容器之间建立三个VNF内部网络，分别为oam，internal，traffic网络。根据原虚拟机VNF的网络配置，每个网络对应不同的vlan。其中pl之间的traffic网络为trunk连接，pl需要在其eth1上配置子接口。<br><img src="/images/sbg.png" alt="sbg"></p>
-<h1 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h1><h2 id="host10"><a href="#host10" class="headerlink" title="host10"></a>host10</h2><p>在/etc/exports文件配置NFS目录<br><code>/srv/cluster *(rw,sync,no_root_squash,no_all_squash,no_subtree_check)</code><br>启动NFS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /srv/cluster/*</span><br><span class="line">service nfsserver restart</span><br></pre></td></tr></table></figure></p>
-<p>创建网络<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network create -d macvlan --subnet=192.168.20.0/24 -o parent=eth4.4002 --attachable internal</span><br><span class="line">docker network create -d macvlan --subnet=192.168.22.0/24 -o parent=eth4.4004 --attachable oam</span><br></pre></td></tr></table></figure></p>
-<p>启动容器并连接到网络<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --privileged --tty --name SC-1 -h SC-1 -i -d --cpuset-cpus 7-22 --net=internal --ip=192.168.20.50 -e NFS_SHARE=10.121.53.11:/srv/cluster vnf:1.6.0 sc</span><br><span class="line">docker network connect bridge SC-1</span><br><span class="line">docker network connect oam SC-1</span><br></pre></td></tr></table></figure></p>
-<h2 id="host11"><a href="#host11" class="headerlink" title="host11"></a>host11</h2><p>配置linux bridge: /etc/sysconfig/network/ifcfg-br-traffic<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BOOTPROTO=&apos;static&apos;</span><br><span class="line">BRIDGE=&apos;yes&apos;</span><br><span class="line">BRIDGE_FORWARDDELAY=&apos;0&apos;</span><br><span class="line">BRIDGE_PORTS=&apos;eth4&apos;</span><br><span class="line">BRIDGE_STP=&apos;off&apos;</span><br><span class="line">STARTMODE=&apos;auto&apos;</span><br></pre></td></tr></table></figure></p>
-<p>创建网络<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network create -d macvlan --subnet=192.168.20.0/24 -o parent=eth3.4002 --attachable internal</span><br><span class="line">docker network create -d bridge  -o &quot;com.docker.network.bridge.name&quot;=&quot;br-traffic&quot; --attachable traffic</span><br></pre></td></tr></table></figure></p>
-<p>启动容器并连接到网络<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --privileged --tty --name PL-3 -h PL-3 -i -d --cpuset-cpus 7-22 --net=internal --ip=192.168.20.14 -e NFS_SHARE=10.121.53.11:/srv/cluster vnf:1.6.0 pl</span><br><span class="line">docker network connect traffic PL-3</span><br><span class="line">docker network connect bridge PL-3</span><br></pre></td></tr></table></figure></p>
-<h2 id="host12"><a href="#host12" class="headerlink" title="host12"></a>host12</h2><p>配置linux bridge: /etc/sysconfig/network/ifcfg-br-traffic<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BOOTPROTO=&apos;static&apos;</span><br><span class="line">BRIDGE=&apos;yes&apos;</span><br><span class="line">BRIDGE_FORWARDDELAY=&apos;0&apos;</span><br><span class="line">BRIDGE_PORTS=&apos;eth4&apos;</span><br><span class="line">BRIDGE_STP=&apos;off&apos;</span><br><span class="line">STARTMODE=&apos;auto&apos;</span><br></pre></td></tr></table></figure></p>
-<p>创建网络<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network create -d macvlan --subnet=192.168.20.0/24 -o parent=eth2.4002 --attachable internal</span><br><span class="line">docker network create -d bridge  -o &quot;com.docker.network.bridge.name&quot;=&quot;br-traffic&quot; --attachable traffic</span><br></pre></td></tr></table></figure></p>
-<p>启动容器并连接到网络<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --privileged --tty --name PL-4 -h PL-4 -i -d --cpuset-cpus 7-22 --net=internal --ip=192.168.20.15 -e NFS_SHARE=10.121.53.11:/srv/cluster vnf:1.6.0 pl</span><br><span class="line">docker network connect traffic PL-4</span><br><span class="line">docker network connect bridge PL-4</span><br></pre></td></tr></table></figure></p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>通过在主机上进行适当的配置，可以使用docker macvlan和docker bridge network driver来快捷搭建跨主机容器网络。前提是要对底层基础设施有完全的控制，因为需要在交换机上通过vlan对网络进行隔离。<br>最终正式的VNF容器网络应该还是需要借助vxlan加DPDK组合来实现网络的划分。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/29/docker多主机网络实践/" rel="next" title="docker多主机网络实践">
+                <i class="fa fa-chevron-left"></i> docker多主机网络实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -564,10 +453,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -575,6 +465,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -595,8 +489,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -649,6 +552,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-VS-UDP"><span class="nav-number">1.</span> <span class="nav-text">TCP VS UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NAT"><span class="nav-number">2.</span> <span class="nav-text">NAT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP是一种流协议"><span class="nav-number">3.</span> <span class="nav-text">TCP是一种流协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP故障模式"><span class="nav-number">4.</span> <span class="nav-text">TCP故障模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP不是轮询的"><span class="nav-number">5.</span> <span class="nav-text">TCP不是轮询的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提防对等实体的不友好动作"><span class="nav-number">6.</span> <span class="nav-text">提防对等实体的不友好动作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理解TCP的写操作"><span class="nav-number">7.</span> <span class="nav-text">理解TCP的写操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理解TCP的有序释放操作"><span class="nav-number">8.</span> <span class="nav-text">理解TCP的有序释放操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#inetd来装载应用程序"><span class="nav-number">9.</span> <span class="nav-text">inetd来装载应用程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#考虑用tcpmux为服务器“分配”知名端口-（不常用）"><span class="nav-number">10.</span> <span class="nav-text">考虑用tcpmux为服务器“分配”知名端口    （不常用）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使应用程序成为事件驱动的"><span class="nav-number">11.</span> <span class="nav-text">使应用程序成为事件驱动的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIME-WAIT"><span class="nav-number">12.</span> <span class="nav-text">TIME-WAIT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SO-REUSEADDR选项（在bind之前调用setsockopt）"><span class="nav-number">13.</span> <span class="nav-text">SO_REUSEADDR选项（在bind之前调用setsockopt）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可能的话，使用一个大规模的写操作，而不是多个小规模的写操作"><span class="nav-number">14.</span> <span class="nav-text">可能的话，使用一个大规模的写操作，而不是多个小规模的写操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#避免数据复制（多进程之间）"><span class="nav-number">15.</span> <span class="nav-text">避免数据复制（多进程之间）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用前将sockaddr-in清零"><span class="nav-number">16.</span> <span class="nav-text">使用前将sockaddr_in清零</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字节序"><span class="nav-number">17.</span> <span class="nav-text">字节序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不要将IP或端口号hard-code到程序中"><span class="nav-number">18.</span> <span class="nav-text">不要将IP或端口号hard-code到程序中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理解已连接的UDP套接字（对UDP使用connect）"><span class="nav-number">19.</span> <span class="nav-text">理解已连接的UDP套接字（对UDP使用connect）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓冲区长度"><span class="nav-number">20.</span> <span class="nav-text">缓冲区长度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ping"><span class="nav-number">21.</span> <span class="nav-text">ping</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#traceroute"><span class="nav-number">22.</span> <span class="nav-text">traceroute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ttcp"><span class="nav-number">23.</span> <span class="nav-text">ttcp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lsof"><span class="nav-number">24.</span> <span class="nav-text">lsof</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#netstate"><span class="nav-number">25.</span> <span class="nav-text">netstate</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#追踪系统调用-——-strace"><span class="nav-number">26.</span> <span class="nav-text">追踪系统调用 —— strace</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -762,10 +681,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
