@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） 每条报文">
+<meta name="description" content="基本概念TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） ">
 <meta name="keywords" content="socket,tcp&#x2F;ip">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记整理 —— Effective TCP&#x2F;IP Programming">
 <meta property="og:url" content="http://yoursite.com/2017/12/06/笔记整理 —— Effective TCPIP Programming/index.html">
 <meta property="og:site_name" content="sjtu_smile的个人博客">
-<meta property="og:description" content="TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） 每条报文前面加上一个首部，其中包含后面报文的长度  TCP故障模式永久或临时的网络中断对等的应用程序崩溃">
+<meta property="og:description" content="基本概念TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） 每条报文前面加上一个首部，其中包含后面报文的长度  TCP故障模式永久或临时的网络中断对等的应用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-11T15:40:50.993Z">
+<meta property="og:updated_time" content="2017-12-20T02:49:43.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="笔记整理 —— Effective TCP&#x2F;IP Programming">
-<meta name="twitter:description" content="TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） 每条报文前面加上一个首部，其中包含后面报文的长度  TCP故障模式永久或临时的网络中断对等的应用程序崩溃">
+<meta name="twitter:description" content="基本概念TCP VS UDP面向连接的，可靠的，有序的校验和；序列号；确认-重传(Ack)流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出拥塞控制 NAT私有地址+端口 &amp;lt;——&amp;gt; 共有地址+新端口 TCP是一种流协议定长报文： readn可变长报文  结束标记（如换行，fgets） 每条报文前面加上一个首部，其中包含后面报文的长度  TCP故障模式永久或临时的网络中断对等的应用">
 
 
 
@@ -330,21 +330,21 @@
       
 
       
-        <h1 id="TCP-VS-UDP"><a href="#TCP-VS-UDP" class="headerlink" title="TCP VS UDP"></a>TCP VS UDP</h1><p>面向连接的，可靠的，有序的<br>校验和；序列号；确认-重传(Ack)<br>流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出<br>拥塞控制</p>
-<h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><p>私有地址+端口 &lt;——&gt; 共有地址+新端口</p>
-<h1 id="TCP是一种流协议"><a href="#TCP是一种流协议" class="headerlink" title="TCP是一种流协议"></a>TCP是一种流协议</h1><p>定长报文： readn<br>可变长报文</p>
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="TCP-VS-UDP"><a href="#TCP-VS-UDP" class="headerlink" title="TCP VS UDP"></a>TCP VS UDP</h2><p>面向连接的，可靠的，有序的<br>校验和；序列号；确认-重传(Ack)<br>流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出<br>拥塞控制</p>
+<h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><p>私有地址+端口 &lt;——&gt; 共有地址+新端口</p>
+<h2 id="TCP是一种流协议"><a href="#TCP是一种流协议" class="headerlink" title="TCP是一种流协议"></a>TCP是一种流协议</h2><p>定长报文： readn<br>可变长报文</p>
 <ul>
 <li>结束标记（如换行，fgets）</li>
 <li>每条报文前面加上一个首部，其中包含后面报文的长度</li>
 </ul>
-<h1 id="TCP故障模式"><a href="#TCP故障模式" class="headerlink" title="TCP故障模式"></a>TCP故障模式</h1><p>永久或临时的网络中断<br>对等的应用程序崩溃<br>运行对等应用程序的主机崩溃</p>
-<h1 id="TCP不是轮询的"><a href="#TCP不是轮询的" class="headerlink" title="TCP不是轮询的"></a>TCP不是轮询的</h1><p>keep-alive(&gt;2小时)检测到死连接并丢弃<br>应用程序提供心跳功能</p>
+<h2 id="TCP故障模式"><a href="#TCP故障模式" class="headerlink" title="TCP故障模式"></a>TCP故障模式</h2><p>永久或临时的网络中断<br>对等的应用程序崩溃<br>运行对等应用程序的主机崩溃</p>
+<h2 id="TCP不是轮询的"><a href="#TCP不是轮询的" class="headerlink" title="TCP不是轮询的"></a>TCP不是轮询的</h2><p>keep-alive(&gt;2小时)检测到死连接并丢弃<br>应用程序提供心跳功能</p>
 <ul>
 <li>增加一个心跳报文类型</li>
 <li>用一个单独的连接来发送和接受心跳信号</li>
 </ul>
-<h1 id="提防对等实体的不友好动作"><a href="#提防对等实体的不友好动作" class="headerlink" title="提防对等实体的不友好动作"></a>提防对等实体的不友好动作</h1><p>检测客户端的终止（设置一个timeout）<br>检测无效输入</p>
-<h1 id="理解TCP的写操作"><a href="#理解TCP的写操作" class="headerlink" title="理解TCP的写操作"></a>理解TCP的写操作</h1><p>从应用程序角度看</p>
+<h2 id="提防对等实体的不友好动作"><a href="#提防对等实体的不友好动作" class="headerlink" title="提防对等实体的不友好动作"></a>提防对等实体的不友好动作</h2><p>检测客户端的终止（设置一个timeout）<br>检测无效输入</p>
+<h1 id="构建高效且健壮的网络程序"><a href="#构建高效且健壮的网络程序" class="headerlink" title="构建高效且健壮的网络程序"></a>构建高效且健壮的网络程序</h1><h2 id="理解TCP的写操作"><a href="#理解TCP的写操作" class="headerlink" title="理解TCP的写操作"></a>理解TCP的写操作</h2><p>从应用程序角度看</p>
 <ul>
 <li>除非TCP发送缓冲区满了，否则写操作是不会被阻塞的</li>
 <li>EPIPE/SIGPIPE： 连接被对等实体重置</li>
@@ -355,7 +355,7 @@
 <li>Nagle算法： 在任意时刻，未被确认的“小”段不能超过一个</li>
 <li>发送缓冲区、发送窗口长度、拥塞窗口长度、MSS 最小值计算可以发送量</li>
 </ul>
-<h1 id="理解TCP的有序释放操作"><a href="#理解TCP的有序释放操作" class="headerlink" title="理解TCP的有序释放操作"></a>理解TCP的有序释放操作</h1><p>int shutdown(int s, int how)    how: SHUT_RD/SHUT_WR/SHUT_RDWR</p>
+<h2 id="理解TCP的有序释放操作"><a href="#理解TCP的有序释放操作" class="headerlink" title="理解TCP的有序释放操作"></a>理解TCP的有序释放操作</h2><p>int shutdown(int s, int how)    how: SHUT_RD/SHUT_WR/SHUT_RDWR</p>
 <ul>
 <li>SHUT_RD: 应用程序后续读返回EOF； ACK并丢弃输入队列中数据</li>
 <li>SHUT_WR: 后续写会出出错； 发送缓冲区的数据都发送出后FIN</li>
@@ -366,38 +366,38 @@
 <li>shutdown并没有释放套接字及其资源，shutdown影响所有打开socket的进程</li>
 <li>close不影响其他进程对该socket的使用，所有进程都close后才FIN</li>
 </ul>
-<h1 id="inetd来装载应用程序"><a href="#inetd来装载应用程序" class="headerlink" title="inetd来装载应用程序"></a>inetd来装载应用程序</h1><ul>
+<h2 id="inetd来装载应用程序"><a href="#inetd来装载应用程序" class="headerlink" title="inetd来装载应用程序"></a>inetd来装载应用程序</h2><ul>
 <li>TCP服务器： inetd监听应用程序知名端口上的连接请求，接受连接，将连接映射到stdin，stdout和stderr，并启动适当的服务器</li>
 <li>UDP服务器： 服务器知名端口上有数据报可读时，inetd将套接字映射到stdin，stdout和stderr，并启动UDP服务器</li>
 </ul>
-<h1 id="考虑用tcpmux为服务器“分配”知名端口-（不常用）"><a href="#考虑用tcpmux为服务器“分配”知名端口-（不常用）" class="headerlink" title="考虑用tcpmux为服务器“分配”知名端口    （不常用）"></a>考虑用tcpmux为服务器“分配”知名端口    （不常用）</h1><h1 id="使应用程序成为事件驱动的"><a href="#使应用程序成为事件驱动的" class="headerlink" title="使应用程序成为事件驱动的"></a>使应用程序成为事件驱动的</h1><p>timer链表； select timeout由timer链表决定<br>select/poll/epoll； select = poll &lt; epoll； select缺点？</p>
-<h1 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME-WAIT"></a>TIME-WAIT</h1><p>主动关闭（FIN）的一端进入TIME-WAIT状态，停留2MSL=2*(0.5~2)min<br>两个作用：</p>
+<h2 id="考虑用tcpmux为服务器“分配”知名端口-（不常用）"><a href="#考虑用tcpmux为服务器“分配”知名端口-（不常用）" class="headerlink" title="考虑用tcpmux为服务器“分配”知名端口    （不常用）"></a>考虑用tcpmux为服务器“分配”知名端口    （不常用）</h2><h2 id="使应用程序成为事件驱动的"><a href="#使应用程序成为事件驱动的" class="headerlink" title="使应用程序成为事件驱动的"></a>使应用程序成为事件驱动的</h2><p>timer链表； select timeout由timer链表决定<br>select/poll/epoll； select = poll &lt; epoll； select缺点？</p>
+<h2 id="TIME-WAIT"><a href="#TIME-WAIT" class="headerlink" title="TIME-WAIT"></a>TIME-WAIT</h2><p>主动关闭（FIN）的一端进入TIME-WAIT状态，停留2MSL=2*(0.5~2)min<br>两个作用：</p>
 <ol>
 <li>防止最后一条ACK丢失造成另一端重发FIN</li>
 <li>耗尽网络中所有此连接的“走失段”，防止对新连接造成破坏</li>
 </ol>
 <p>设置SO_LINGER迫使连接立即关闭（向对等实体发RST），这样就可重启服务器; TIME_WAIT暗杀，不推荐</p>
-<h1 id="SO-REUSEADDR选项（在bind之前调用setsockopt）"><a href="#SO-REUSEADDR选项（在bind之前调用setsockopt）" class="headerlink" title="SO_REUSEADDR选项（在bind之前调用setsockopt）"></a>SO_REUSEADDR选项（在bind之前调用setsockopt）</h1><p>解决上一个tip中服务器无法重启——‘Address already in use’（由于TIME-WAIT）问题<br>不会出现相同的TCP四元组<br>没有理由不在服务器中设置SO_REUSEADDR</p>
-<h1 id="可能的话，使用一个大规模的写操作，而不是多个小规模的写操作"><a href="#可能的话，使用一个大规模的写操作，而不是多个小规模的写操作" class="headerlink" title="可能的话，使用一个大规模的写操作，而不是多个小规模的写操作"></a>可能的话，使用一个大规模的写操作，而不是多个小规模的写操作</h1><p>写操作的每次调用至少进行两次上下文切换（非主因）<br>Nagle算法+延迟ACK（200ms， ACK在应答数据中捎带）<br>Nagle： 每条连接上同时最多只能有一个未经确认的小分段<br>禁用Nagle算法（TCP_NODELAY选项），不推荐<br>将写操作合并起来，writev/readv，通过writev可以指定一个缓冲区列表，要写出的数据就可以从这个列表中收集</p>
-<h1 id="避免数据复制（多进程之间）"><a href="#避免数据复制（多进程之间）" class="headerlink" title="避免数据复制（多进程之间）"></a>避免数据复制（多进程之间）</h1><p>大部分IPC机制都要将数据从发送进程复制到内核，然后从内核复制到接收进程（copy twice）<br>使用共享内存可以避免所有的数据复制；使用任意IPC将数据在共享内存缓冲区的索引传递给下一个进程；mutex实现对缓冲区的同步访问</p>
-<h1 id="使用前将sockaddr-in清零"><a href="#使用前将sockaddr-in清零" class="headerlink" title="使用前将sockaddr_in清零"></a>使用前将sockaddr_in清零</h1><h1 id="字节序"><a href="#字节序" class="headerlink" title="字节序"></a>字节序</h1><p>0x12345678</p>
+<h2 id="SO-REUSEADDR选项（在bind之前调用setsockopt）"><a href="#SO-REUSEADDR选项（在bind之前调用setsockopt）" class="headerlink" title="SO_REUSEADDR选项（在bind之前调用setsockopt）"></a>SO_REUSEADDR选项（在bind之前调用setsockopt）</h2><p>解决上一个tip中服务器无法重启——‘Address already in use’（由于TIME-WAIT）问题<br>不会出现相同的TCP四元组<br>没有理由不在服务器中设置SO_REUSEADDR</p>
+<h2 id="可能的话，使用一个大规模的写操作，而不是多个小规模的写操作"><a href="#可能的话，使用一个大规模的写操作，而不是多个小规模的写操作" class="headerlink" title="可能的话，使用一个大规模的写操作，而不是多个小规模的写操作"></a>可能的话，使用一个大规模的写操作，而不是多个小规模的写操作</h2><p>写操作的每次调用至少进行两次上下文切换（非主因）<br>Nagle算法+延迟ACK（200ms， ACK在应答数据中捎带）<br>Nagle： 每条连接上同时最多只能有一个未经确认的小分段<br>禁用Nagle算法（TCP_NODELAY选项），不推荐<br>将写操作合并起来，writev/readv，通过writev可以指定一个缓冲区列表，要写出的数据就可以从这个列表中收集</p>
+<h2 id="避免数据复制（多进程之间）"><a href="#避免数据复制（多进程之间）" class="headerlink" title="避免数据复制（多进程之间）"></a>避免数据复制（多进程之间）</h2><p>大部分IPC机制都要将数据从发送进程复制到内核，然后从内核复制到接收进程（copy twice）<br>使用共享内存可以避免所有的数据复制；使用任意IPC将数据在共享内存缓冲区的索引传递给下一个进程；mutex实现对缓冲区的同步访问</p>
+<h2 id="使用前将sockaddr-in清零"><a href="#使用前将sockaddr-in清零" class="headerlink" title="使用前将sockaddr_in清零"></a>使用前将sockaddr_in清零</h2><h2 id="字节序"><a href="#字节序" class="headerlink" title="字节序"></a>字节序</h2><p>0x12345678</p>
 <ul>
 <li>12 34 56 78（左边为低地址） 大端</li>
 <li>78 56 34 12（左边为低地址） 小端</li>
 </ul>
 <p>网络字节序为大端<br>htonl/htons/ntohl/ntohs<br>只有会被协议检查的字段才需要使用这些函数，用户数据被UDP/TCP当作无结构的字节<br>对所有发送的数据使用ntoh<em>和hton</em>有益无害</p>
-<h1 id="不要将IP或端口号hard-code到程序中"><a href="#不要将IP或端口号hard-code到程序中" class="headerlink" title="不要将IP或端口号hard-code到程序中"></a>不要将IP或端口号hard-code到程序中</h1><p>两种方法获取：</p>
+<h2 id="不要将IP或端口号hard-code到程序中"><a href="#不要将IP或端口号hard-code到程序中" class="headerlink" title="不要将IP或端口号hard-code到程序中"></a>不要将IP或端口号hard-code到程序中</h2><p>两种方法获取：</p>
 <ol>
 <li>作为命令行参数</li>
 <li>gethostbyname（取IP）或getservbyname（取端口）</li>
 </ol>
-<h1 id="理解已连接的UDP套接字（对UDP使用connect）"><a href="#理解已连接的UDP套接字（对UDP使用connect）" class="headerlink" title="理解已连接的UDP套接字（对UDP使用connect）"></a>理解已连接的UDP套接字（对UDP使用connect）</h1><p>对UDP来说，调用connect不会产生任何网络流量，只是将对端IP/port绑定到本地socket上<br>不再使用sendto，而是使用send或write来发送数据，性能有所提高<br>更主要原因是为了接收异步错误通知（UDP无状态，无连接）</p>
-<h1 id="缓冲区长度"><a href="#缓冲区长度" class="headerlink" title="缓冲区长度"></a>缓冲区长度</h1><p>前提:为了获取最大的吞吐量，数据流量是一个方向<br>发送接收缓冲区至少为带宽时延积，可达到最大吞吐量<br>非交互应用程序至少将其发送缓冲区设置为3MSS</p>
-<h1 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h1><h1 id="traceroute"><a href="#traceroute" class="headerlink" title="traceroute"></a>traceroute</h1><p>向目的地发送UDP数据报，TTL从1增加，根据回复的ICMP“传输超时”解析路由器主机名</p>
-<h1 id="ttcp"><a href="#ttcp" class="headerlink" title="ttcp"></a>ttcp</h1><p>一种工具使用TCP或UDP发送任意数量的数据到另一台机器并收集与传输有关的统计信息</p>
-<h1 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h1><p>找到某个文件或socket/port的进程</p>
-<h1 id="netstate"><a href="#netstate" class="headerlink" title="netstate"></a>netstate</h1><p>netstate -f    查看活动socket的相关信息<br>netstate -i    网络接口信息<br>netstate -n    路由表<br>netstate -p    协议统计信息</p>
-<h1 id="追踪系统调用-——-strace"><a href="#追踪系统调用-——-strace" class="headerlink" title="追踪系统调用 —— strace"></a>追踪系统调用 —— strace</h1>
+<h2 id="理解已连接的UDP套接字（对UDP使用connect）"><a href="#理解已连接的UDP套接字（对UDP使用connect）" class="headerlink" title="理解已连接的UDP套接字（对UDP使用connect）"></a>理解已连接的UDP套接字（对UDP使用connect）</h2><p>对UDP来说，调用connect不会产生任何网络流量，只是将对端IP/port绑定到本地socket上<br>不再使用sendto，而是使用send或write来发送数据，性能有所提高<br>更主要原因是为了接收异步错误通知（UDP无状态，无连接）</p>
+<h2 id="缓冲区长度"><a href="#缓冲区长度" class="headerlink" title="缓冲区长度"></a>缓冲区长度</h2><p>前提:为了获取最大的吞吐量，数据流量是一个方向<br>发送接收缓冲区至少为带宽时延积，可达到最大吞吐量<br>非交互应用程序至少将其发送缓冲区设置为3MSS</p>
+<h1 id="工具和资源"><a href="#工具和资源" class="headerlink" title="工具和资源"></a>工具和资源</h1><h2 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h2><h2 id="traceroute"><a href="#traceroute" class="headerlink" title="traceroute"></a>traceroute</h2><p>向目的地发送UDP数据报，TTL从1增加，根据回复的ICMP“传输超时”解析路由器主机名</p>
+<h2 id="ttcp"><a href="#ttcp" class="headerlink" title="ttcp"></a>ttcp</h2><p>一种工具使用TCP或UDP发送任意数量的数据到另一台机器并收集与传输有关的统计信息</p>
+<h2 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h2><p>找到某个文件或socket/port的进程</p>
+<h2 id="netstate"><a href="#netstate" class="headerlink" title="netstate"></a>netstate</h2><p>netstate -f    查看活动socket的相关信息<br>netstate -i    网络接口信息<br>netstate -n    路由表<br>netstate -p    协议统计信息</p>
+<h2 id="追踪系统调用-——-strace"><a href="#追踪系统调用-——-strace" class="headerlink" title="追踪系统调用 —— strace"></a>追踪系统调用 —— strace</h2>
       
     </div>
     
@@ -562,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-VS-UDP"><span class="nav-number">1.</span> <span class="nav-text">TCP VS UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NAT"><span class="nav-number">2.</span> <span class="nav-text">NAT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP是一种流协议"><span class="nav-number">3.</span> <span class="nav-text">TCP是一种流协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP故障模式"><span class="nav-number">4.</span> <span class="nav-text">TCP故障模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP不是轮询的"><span class="nav-number">5.</span> <span class="nav-text">TCP不是轮询的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提防对等实体的不友好动作"><span class="nav-number">6.</span> <span class="nav-text">提防对等实体的不友好动作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理解TCP的写操作"><span class="nav-number">7.</span> <span class="nav-text">理解TCP的写操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理解TCP的有序释放操作"><span class="nav-number">8.</span> <span class="nav-text">理解TCP的有序释放操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#inetd来装载应用程序"><span class="nav-number">9.</span> <span class="nav-text">inetd来装载应用程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#考虑用tcpmux为服务器“分配”知名端口-（不常用）"><span class="nav-number">10.</span> <span class="nav-text">考虑用tcpmux为服务器“分配”知名端口    （不常用）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使应用程序成为事件驱动的"><span class="nav-number">11.</span> <span class="nav-text">使应用程序成为事件驱动的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TIME-WAIT"><span class="nav-number">12.</span> <span class="nav-text">TIME-WAIT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SO-REUSEADDR选项（在bind之前调用setsockopt）"><span class="nav-number">13.</span> <span class="nav-text">SO_REUSEADDR选项（在bind之前调用setsockopt）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可能的话，使用一个大规模的写操作，而不是多个小规模的写操作"><span class="nav-number">14.</span> <span class="nav-text">可能的话，使用一个大规模的写操作，而不是多个小规模的写操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#避免数据复制（多进程之间）"><span class="nav-number">15.</span> <span class="nav-text">避免数据复制（多进程之间）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用前将sockaddr-in清零"><span class="nav-number">16.</span> <span class="nav-text">使用前将sockaddr_in清零</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字节序"><span class="nav-number">17.</span> <span class="nav-text">字节序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不要将IP或端口号hard-code到程序中"><span class="nav-number">18.</span> <span class="nav-text">不要将IP或端口号hard-code到程序中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理解已连接的UDP套接字（对UDP使用connect）"><span class="nav-number">19.</span> <span class="nav-text">理解已连接的UDP套接字（对UDP使用connect）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓冲区长度"><span class="nav-number">20.</span> <span class="nav-text">缓冲区长度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ping"><span class="nav-number">21.</span> <span class="nav-text">ping</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#traceroute"><span class="nav-number">22.</span> <span class="nav-text">traceroute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ttcp"><span class="nav-number">23.</span> <span class="nav-text">ttcp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lsof"><span class="nav-number">24.</span> <span class="nav-text">lsof</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#netstate"><span class="nav-number">25.</span> <span class="nav-text">netstate</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#追踪系统调用-——-strace"><span class="nav-number">26.</span> <span class="nav-text">追踪系统调用 —— strace</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-VS-UDP"><span class="nav-number">1.1.</span> <span class="nav-text">TCP VS UDP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT"><span class="nav-number">1.2.</span> <span class="nav-text">NAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP是一种流协议"><span class="nav-number">1.3.</span> <span class="nav-text">TCP是一种流协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP故障模式"><span class="nav-number">1.4.</span> <span class="nav-text">TCP故障模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP不是轮询的"><span class="nav-number">1.5.</span> <span class="nav-text">TCP不是轮询的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提防对等实体的不友好动作"><span class="nav-number">1.6.</span> <span class="nav-text">提防对等实体的不友好动作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建高效且健壮的网络程序"><span class="nav-number">2.</span> <span class="nav-text">构建高效且健壮的网络程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#理解TCP的写操作"><span class="nav-number">2.1.</span> <span class="nav-text">理解TCP的写操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解TCP的有序释放操作"><span class="nav-number">2.2.</span> <span class="nav-text">理解TCP的有序释放操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inetd来装载应用程序"><span class="nav-number">2.3.</span> <span class="nav-text">inetd来装载应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑用tcpmux为服务器“分配”知名端口-（不常用）"><span class="nav-number">2.4.</span> <span class="nav-text">考虑用tcpmux为服务器“分配”知名端口    （不常用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使应用程序成为事件驱动的"><span class="nav-number">2.5.</span> <span class="nav-text">使应用程序成为事件驱动的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIME-WAIT"><span class="nav-number">2.6.</span> <span class="nav-text">TIME-WAIT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SO-REUSEADDR选项（在bind之前调用setsockopt）"><span class="nav-number">2.7.</span> <span class="nav-text">SO_REUSEADDR选项（在bind之前调用setsockopt）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可能的话，使用一个大规模的写操作，而不是多个小规模的写操作"><span class="nav-number">2.8.</span> <span class="nav-text">可能的话，使用一个大规模的写操作，而不是多个小规模的写操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免数据复制（多进程之间）"><span class="nav-number">2.9.</span> <span class="nav-text">避免数据复制（多进程之间）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用前将sockaddr-in清零"><span class="nav-number">2.10.</span> <span class="nav-text">使用前将sockaddr_in清零</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字节序"><span class="nav-number">2.11.</span> <span class="nav-text">字节序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不要将IP或端口号hard-code到程序中"><span class="nav-number">2.12.</span> <span class="nav-text">不要将IP或端口号hard-code到程序中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解已连接的UDP套接字（对UDP使用connect）"><span class="nav-number">2.13.</span> <span class="nav-text">理解已连接的UDP套接字（对UDP使用connect）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓冲区长度"><span class="nav-number">2.14.</span> <span class="nav-text">缓冲区长度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具和资源"><span class="nav-number">3.</span> <span class="nav-text">工具和资源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ping"><span class="nav-number">3.1.</span> <span class="nav-text">ping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#traceroute"><span class="nav-number">3.2.</span> <span class="nav-text">traceroute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ttcp"><span class="nav-number">3.3.</span> <span class="nav-text">ttcp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lsof"><span class="nav-number">3.4.</span> <span class="nav-text">lsof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#netstate"><span class="nav-number">3.5.</span> <span class="nav-text">netstate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#追踪系统调用-——-strace"><span class="nav-number">3.6.</span> <span class="nav-text">追踪系统调用 —— strace</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -585,7 +585,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
