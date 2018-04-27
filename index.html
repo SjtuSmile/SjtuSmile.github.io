@@ -331,7 +331,9 @@
       
         
           
-            <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="TCP-VS-UDP"><a href="#TCP-VS-UDP" class="headerlink" title="TCP VS UDP"></a>TCP VS UDP</h2><p>面向连接的，可靠的，有序的<br>校验和；序列号；确认-重传(Ack)<br>流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出<br>拥塞控制</p>
+            <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p><img src="/images/tcp_client.png" alt="client"></p>
+<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><p><img src="/images/tcp_server.png" alt="server"></p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="TCP-VS-UDP"><a href="#TCP-VS-UDP" class="headerlink" title="TCP VS UDP"></a>TCP VS UDP</h2><p>面向连接的，可靠的，有序的<br>校验和；序列号；确认-重传(Ack)<br>流量控制（发送窗口，接收窗口）——防止对等实体缓冲区溢出<br>拥塞控制</p>
 <h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><p>私有地址+端口 &lt;——&gt; 共有地址+新端口</p>
 <h2 id="TCP是一种流协议"><a href="#TCP是一种流协议" class="headerlink" title="TCP是一种流协议"></a>TCP是一种流协议</h2><p>定长报文： readn<br>可变长报文</p>
 <ul>
@@ -394,7 +396,8 @@
 </ol>
 <h2 id="理解已连接的UDP套接字（对UDP使用connect）"><a href="#理解已连接的UDP套接字（对UDP使用connect）" class="headerlink" title="理解已连接的UDP套接字（对UDP使用connect）"></a>理解已连接的UDP套接字（对UDP使用connect）</h2><p>对UDP来说，调用connect不会产生任何网络流量，只是将对端IP/port绑定到本地socket上<br>不再使用sendto，而是使用send或write来发送数据，性能有所提高<br>更主要原因是为了接收异步错误通知（UDP无状态，无连接）</p>
 <h2 id="缓冲区长度"><a href="#缓冲区长度" class="headerlink" title="缓冲区长度"></a>缓冲区长度</h2><p>前提:为了获取最大的吞吐量，数据流量是一个方向<br>发送接收缓冲区至少为带宽时延积，可达到最大吞吐量<br>非交互应用程序至少将其发送缓冲区设置为3MSS</p>
-<h1 id="工具和资源"><a href="#工具和资源" class="headerlink" title="工具和资源"></a>工具和资源</h1><h2 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h2><h2 id="traceroute"><a href="#traceroute" class="headerlink" title="traceroute"></a>traceroute</h2><p>向目的地发送UDP数据报，TTL从1增加，根据回复的ICMP“传输超时”解析路由器主机名</p>
+<h1 id="工具和资源"><a href="#工具和资源" class="headerlink" title="工具和资源"></a>工具和资源</h1><h2 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h2><h2 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h2><p><img src="/images/BPF.png" alt="bpf"></p>
+<h2 id="traceroute"><a href="#traceroute" class="headerlink" title="traceroute"></a>traceroute</h2><p>向目的地发送UDP数据报，TTL从1增加，根据回复的ICMP“传输超时”解析路由器主机名</p>
 <h2 id="ttcp"><a href="#ttcp" class="headerlink" title="ttcp"></a>ttcp</h2><p>一种工具使用TCP或UDP发送任意数量的数据到另一台机器并收集与传输有关的统计信息</p>
 <h2 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h2><p>找到某个文件或socket/port的进程</p>
 <h2 id="netstate"><a href="#netstate" class="headerlink" title="netstate"></a>netstate</h2><p>netstate -f    查看活动socket的相关信息<br>netstate -i    网络接口信息<br>netstate -n    路由表<br>netstate -p    协议统计信息</p>
