@@ -260,6 +260,141 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/09/openstack-image-delete/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sjtu_smile">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sjtu_smile的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/09/openstack-image-delete/" itemprop="url">OpenStack开发实践－镜像删除时检查是否被使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T00:00:00+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>本实验基于OpenStack Mitaka版本。<br>在使用<code>openstack image delete</code>或者<code>glance image-delete</code>命令删除镜像时，检查该镜像是否被vm instance使用，如果被使用，则拒绝删除该镜像。<br>最直观的解决方案是在glance-api服务中”delete”的入口函数处，调用nova的client来查找使用该镜像的虚机。如果查找的结果不为空，说明该镜像正在被使用，直接报错。</p>
+<h1 id="keystoneauth1"><a href="#keystoneauth1" class="headerlink" title="keystoneauth1"></a>keystoneauth1</h1><p>nova client可以通过novaclient.client.Client函数来构造。和OpenStack中所有的API请求一样，构造client的时候同样需要keystone进行认证。Client函数提供两种方式进行认证。一种是直接提供完整的认证参数，包括API版本，用户名，密码，project id，keystone url；还有一种是通过python keystoneauth1模块获得一个session，然后将该session传入Client函数。这里我们采用第二种认证方式。<br>在<a href="https://pypi.org/" target="_blank" rel="noopener">pypi</a>中搜索“keystoneauth1”，可以找到keystoneauth1模块的官方文档说明。keystoneauth1提供了keystoneauth1.session.Session类作为所有OpenStack客户端进行认证的统一接口。Session对象作为各个OpenStack服务的入口，包含了认证凭据和连接信息。client需要利用这些信息来和服务端进行通信。<br>keystoneauth1使用“authentication plugin”来进行认证，没有session中包含一个authentication plugin。绝大多数情况，该authentication plugin用来向OpenStack Identity Service也就是Keystone进行认证，这时候也称作“Identity Plugin”。<br>keystoneauth1中主要支持两种方式来加载authentication plugin，这两种方式在OpenStack中都比较常见。</p>
+<ul>
+<li><p>一种是通过配置文件来加载，比如可以在配置文件里定义如下字段来使用“password plugin”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[section]</span><br><span class="line">auth_url = http://keystone.example.com:5000/</span><br><span class="line">auth_type = password</span><br><span class="line">username = myuser</span><br><span class="line">password = mypassword</span><br><span class="line">project_name = myproject</span><br><span class="line">default_domain_name = mydomain</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有一种方式是通过CLI来加载plugin。通过这种方式加载的时候，可以在环境变量中定义各参数的缺省值，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export OS_AUTH_TYPE=password</span><br><span class="line">export OS_AUTH_URL=http://keystone.example.com:5000/</span><br><span class="line">export OS_USERNAME=myuser</span><br><span class="line">export OS_PASSWORD=mypassword</span><br><span class="line">export OS_PROJECT_NAME=myproject</span><br><span class="line">export OS_DEFAULT_DOMAIN_NAME=mydomain</span><br></pre></td></tr></table></figure>
+<p>  在命令行中指定的参数会覆盖环境变量中定义的参数，比如：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">openstack --os-auth-type password \</span><br><span class="line">		  --os-auth-url http://keystone.example.com:5000/ \</span><br><span class="line">		  --os-username myuser \</span><br><span class="line">		  --os-password mypassword \</span><br><span class="line">		  --os-project-name myproject \</span><br><span class="line">		  --os-default-domain-name mydomain \</span><br><span class="line">		  operation</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="注册配置项"><a href="#注册配置项" class="headerlink" title="注册配置项"></a>注册配置项</h1><p>在本例中，我们通过配置文件来加载auth plugin。在/etc/glance/glance-api.conf中加入”[nova]”字段，里面包含passwork plugin所需要的各个参数值，具体配置可以参考/etc/neutron/neutron.conf中的“[nova]”字段的设置。<br>配置文件修改后，需要在/usr/lib/python2.7/dist-packages/glance/common/config.py文件中注册”[nova]”相关的配置项。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from keystoneauth1 import loading as ks_loading</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">NOVA_CONF_SECTION = &apos;nova&apos;</span><br><span class="line"></span><br><span class="line">ks_loading.register_auth_conf_options(cfg.CONF, NOVA_CONF_SECTION)</span><br><span class="line">ks_loading.register_session_conf_options(cfg.CONF, NOVA_CONF_SECTION)</span><br><span class="line"></span><br><span class="line">nova_opts = [</span><br><span class="line">    cfg.StrOpt(&apos;region_name&apos;,</span><br><span class="line">               help=_(&apos;Name of nova region to use. Useful if keystone manages&apos;</span><br><span class="line">                      &apos; more than one region.&apos;)),</span><br><span class="line">    cfg.StrOpt(&apos;endpoint_type&apos;,</span><br><span class="line">               default=&apos;public&apos;,</span><br><span class="line">               choices=[&apos;public&apos;, &apos;admin&apos;, &apos;internal&apos;],</span><br><span class="line">               help=_(&apos;Type of the nova endpoint to use.  This endpoint will&apos;</span><br><span class="line">                      &apos; be looked up in the keystone catalog and should be&apos;</span><br><span class="line">                      &apos; one of public, internal or admin.&apos;)),</span><br><span class="line">]</span><br><span class="line">cfg.CONF.register_opts(nova_opts, group=NOVA_CONF_SECTION)</span><br></pre></td></tr></table></figure></p>
+<h1 id="修改API处理函数"><a href="#修改API处理函数" class="headerlink" title="修改API处理函数"></a>修改API处理函数</h1><p>glance中image操作的入口在api/v2/images/ImagesController类中。修改ImagesController类中的delete函数。在处理原来的删除逻辑前，加入自己的判断逻辑。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">from keystoneauth1 import loading as ks_loading</span><br><span class="line">from novaclient import client as nova_client</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">    def delete(self, req, image_id):</span><br><span class="line">        # 从配置文件中加载auth plugin</span><br><span class="line">        auth = ks_loading.load_auth_from_conf_options(cfg.CONF, &apos;nova&apos;)</span><br><span class="line">        # 构造session</span><br><span class="line">        session = ks_loading.load_session_from_conf_options(cfg.CONF, &apos;nova&apos;, auth=auth)</span><br><span class="line">        # 构造nova client</span><br><span class="line">        nclient = nova_client.Client(</span><br><span class="line">            &apos;2&apos;,</span><br><span class="line">            session=session,</span><br><span class="line">            region_name=cfg.CONF.nova.region_name,</span><br><span class="line">            endpoint_type=cfg.CONF.nova.endpoint_type)</span><br><span class="line">        # 列出所有使用该镜像的虚机，如果虚机列表不为空则报错</span><br><span class="line">        resp, body = nclient.client.get(&apos;/servers/detail?all_tenants=True&amp;image=%s&apos; % image_id)</span><br><span class="line">        if resp.status_code == 200 and body[&apos;servers&apos;]:</span><br><span class="line">            server_name = body[&apos;servers&apos;][0][&apos;name&apos;]</span><br><span class="line">            msg = (_(&quot;Image %(id)s could not be deleted &quot;</span><br><span class="line">                     &quot;because it is in use by server: %(server_name)s&quot;) %</span><br><span class="line">                   &#123;&quot;id&quot;: image_id,</span><br><span class="line">                    &quot;server_name&quot;: server_name&#125;)</span><br><span class="line">            LOG.warn(msg)</span><br><span class="line">            raise webob.exc.HTTPConflict(explanation=msg)</span><br></pre></td></tr></table></figure>
+<p>代码修改后，重启glance-api服务。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/06/笔记整理 —— Effective TCPIP Programming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -614,7 +749,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -627,7 +762,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
